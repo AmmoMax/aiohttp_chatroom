@@ -2,6 +2,8 @@ import aiohttp
 from aiohttp import web
 # from aiohttp_session import get_session
 
+# https://github.com/steelkiwi/aiohttp_test_chat/tree/2a11520e811ccdd47a6c9a6422dd2c22b0ea7a40
+# https://steelkiwi.com/blog/an-example-of-a-simple-chat-written-in-aiohttp/
 app = web.Application()
 app['websockets'] = []
 users_list = []
@@ -20,6 +22,7 @@ class WebSocket(web.View):
         users_list.append(login)
         user_number += 1
 
+        print(f'user {login} connected')
         for _ws in self.request.app['websockets']:
             await _ws.send_str(f"{login} joined")
         self.request.app['websockets'].append(ws)
